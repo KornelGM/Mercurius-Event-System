@@ -9,8 +9,8 @@ using UnityEngine.Events;
 
 public class EventListenerBase<U, M, T> : MonoBehaviour, IEventListener<T> where U: UnityEvent<T> where M: class, IEvent<T>
 {
-	[SerializeField] private M gameEvent;
-	[SerializeField] private U response;
+	[SerializeField] private M gameEvent = null;
+	[SerializeField] private U response = null;
 
 	private void Start( )
 	{
