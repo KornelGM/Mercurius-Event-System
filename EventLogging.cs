@@ -1,6 +1,6 @@
 /**
  * Description: Helper class for event logging. Used by editor extension.
- * Copyright: © 2017-2018 Kornel, MIT License. Please see 'README.md' and 'LICENSE' files for more information.
+ * Copyright: © 2017-2020 Kornel, MIT License. Please see 'README.md' and 'LICENSE' files for more information.
  **/
 
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ public enum LogType
 
 public class EventLogMessage
 {
-	public EventLogMessage( float timeStamp, LogType type, string eventName, GameObject gameObject, string value, string message = "" )
+	public EventLogMessage(float timeStamp, LogType type, string eventName, GameObject gameObject, string value, string message = "")
 	{
 		TimeStamp = timeStamp;
 		Type = type;
@@ -42,7 +42,7 @@ public class EventLogMessage
 
 public class EventLogging
 {
-	readonly public static List<EventLogMessage> Messages = new List<EventLogMessage> ();
+	readonly public static List<EventLogMessage> Messages = new List<EventLogMessage>();
 
 	/// <summary>
 	/// Log a message to the Event Log window.
@@ -52,11 +52,11 @@ public class EventLogging
 	/// <param name="gameObject">GameObject sending the event.</param>
 	/// <param name="value">Value passed.</param>
 	/// <param name="message">Optional message.</param>
-	public static void Log( LogType type, string eventName, GameObject gameObject, string value, string message = "" )
+	public static void Log(LogType type, string eventName, GameObject gameObject, string value, string message = "")
 	{
 #if UNITY_EDITOR
-		EventLogMessage msg = new EventLogMessage( Time.realtimeSinceStartup, type, eventName, gameObject, value, message );
-		Messages.Add( msg );
+		EventLogMessage msg = new EventLogMessage(Time.realtimeSinceStartup, type, eventName, gameObject, value, message);
+		Messages.Add(msg);
 #else
 		Debug.Log( $"{Time.realtimeSinceStartup:0.000} - Type: {type}, Event: {eventName}, GameObject: {gameObject.name}, Value: {value}, Message: {message}" );
 #endif
