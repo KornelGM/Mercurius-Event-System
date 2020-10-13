@@ -18,6 +18,8 @@ Please see Description below for more details.
 	- Either attach `FloatEventListener.cs` (or your own event listener) to a GameObject that you want to listen to your event and like in point 3. drag the event asset to `Game Event` field in the inspector. Every listener (like `FloatEventListener.cs`) has a standard Unity Event slots (like Unity's new UI Buttons or Sliders) that can be used to call methods in respons to the event being broadcast.
 	- Or add `public FloatEvent myEvent;` in your script and subscribe directly the the event `myEvent.Subscribe(OnMyEventHandler);`. _Please remember to drag the event asset file in the inspector window. Also please remember to unsubscribe (for example in `OnDisable`)._
 
+**Please see `Examples` folder for some examples.**
+
 
 ### Optional
 You can open the companion Event Log windows from Windows->Event Log to track the events being broadcast and recived.
@@ -31,6 +33,8 @@ You can open the companion Event Log windows from Windows->Event Log to track th
 4. In classes that will need access to that variable please add `public ShaderFloatVariable hp;` **and** drag the created asset in to the inspector field.
 5. In any of the scripts you can read or write to the shared variable like so `hp.Value = 10f;`
 6. Shared Variables also have read-only (and settable via the inspector) `StartValue`.
+
+**Please see `Examples` folder for some examples.**
 
 
 ## Description
