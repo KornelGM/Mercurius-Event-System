@@ -5,5 +5,5 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Float Shared Variable", menuName = "Shared Variable/Float Variable")]
+[CreateAssetMenu(fileName = "New Shared Float Variable", menuName = "Shared Variable/Float Variable")]
 public class SharedFloatVariable: SharedVariableBase<float> { }

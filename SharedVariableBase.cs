@@ -9,9 +9,11 @@ using UnityEngine;
 
 public class SharedVariableBase<T>: ScriptableObject, ISerializationCallbackReceiver
 {
-	[SerializeField] private T _startValue = default;
+	public T StartValue { get => _startValue; }
 
 	[NonSerialized] public T Value;
+
+	[SerializeField] private T _startValue = default;
 
 	public void OnAfterDeserialize()
 	{
