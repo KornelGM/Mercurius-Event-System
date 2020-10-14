@@ -19,19 +19,19 @@ public class EventListenerBase<U, M>: MonoBehaviour, IEventListener where U : Un
 
 	private void OnEnable()
 	{
-		EventLogging.Log(LogType.Subscribed, GetType().Name, gameObject, "N/A", $"Listener on {name} subscribed.");
+		EventLogging.Log(LogType.Subscribed, gameEvent.ToString(), gameObject.name, "N/A", $"Listener on {name} subscribed.", gameObject);
 		gameEvent.Subscribe(this);
 	}
 
 	private void OnDisable()
 	{
-		EventLogging.Log(LogType.UnSubscribed, GetType().Name, gameObject, "N/A", $"Listener on {name} unsubscribed.");
+		EventLogging.Log(LogType.UnSubscribed, gameEvent.ToString(), gameObject.name, "N/A", $"Listener on {name} unsubscribed.", gameObject);
 		gameEvent.UnSubscribe(this);
 	}
 
 	public void OnEventRaised()
 	{
-		EventLogging.Log(LogType.Received, GetType().Name, gameObject, "N/A", $"Event received by listener on <b>{name}</b> GameObject. UnityEvents attached: <b>{response.GetPersistentEventCount()}</b>");
+		EventLogging.Log(LogType.Received, gameEvent.ToString(), gameObject.name, "N/A", $"Event received by listener on <b>{name}</b> GameObject. UnityEvents attached: <b>{response.GetPersistentEventCount()}</b>", gameObject);
 		response.Invoke();
 	}
 }
@@ -48,19 +48,19 @@ public class EventListenerBase<U, M, T> : MonoBehaviour, IEventListener<T> where
 
 	private void OnEnable( )
 	{
-		EventLogging.Log( LogType.Subscribed, typeof(T).ToString( ), gameObject, GetType( ).Name, $"Listener on {name} subscribed." );
+		EventLogging.Log( LogType.Subscribed, gameEvent.ToString(), gameObject.name, GetType( ).Name, $"Listener on {name} subscribed.", gameObject);
 		gameEvent.Subscribe( this );
 	}
 
 	private void OnDisable( )
 	{
-		EventLogging.Log( LogType.UnSubscribed, typeof( T ).ToString( ), gameObject, GetType( ).Name, $"Listener on {name} unsubscribed." );
+		EventLogging.Log( LogType.UnSubscribed, gameEvent.ToString(), gameObject.name, GetType( ).Name, $"Listener on {name} unsubscribed.", gameObject);
 		gameEvent.UnSubscribe( this );
 	}
 
 	public void OnEventRaised( T parameter )
 	{
-		EventLogging.Log( LogType.Received, parameter.ToString( ), gameObject, GetType( ).Name, $"Event received by listener on <b>{name}</b> GameObject. Value passed: <b>{parameter}</b>. UnityEvents attached: <b>{response.GetPersistentEventCount( )}</b>" );
+		EventLogging.Log( LogType.Received, gameEvent.ToString(), gameObject.name, parameter.ToString(), $"Event received by listener on <b>{name}</b> GameObject. Value passed: <b>{parameter}</b>. UnityEvents attached: <b>{response.GetPersistentEventCount( )}</b>", gameObject);
 		response.Invoke( parameter );
 	}
 }
@@ -77,19 +77,19 @@ public class EventListenerBase<U, M, T, V>: MonoBehaviour, IEventListener<T,V> w
 
 	private void OnEnable()
 	{
-		EventLogging.Log(LogType.Subscribed, GetType().Name, gameObject, $"({typeof(T)}, {typeof(V)})", $"Listener on {name} subscribed.");
+		EventLogging.Log(LogType.Subscribed, gameEvent.ToString(), gameObject.name, $"({typeof(T)}, {typeof(V)})", $"Listener on {name} subscribed.", gameObject);
 		gameEvent.Subscribe(this);
 	}
 
 	private void OnDisable()
 	{
-		EventLogging.Log(LogType.UnSubscribed, GetType().Name, gameObject, $"({typeof(T)}, {typeof(V)})", $"Listener on {name} unsubscribed.");
+		EventLogging.Log(LogType.UnSubscribed, gameEvent.ToString(), gameObject.name, $"({typeof(T)}, {typeof(V)})", $"Listener on {name} unsubscribed.", gameObject);
 		gameEvent.UnSubscribe(this);
 	}
 
 	public void OnEventRaised(T parameter1, V parameter2)
 	{
-		EventLogging.Log(LogType.Received, GetType().Name, gameObject, $"({parameter1}, {parameter2})", $"Event received by listener on <b>{name}</b> GameObject. Values passed: <b>{parameter1}</b>, <b>{parameter2}</b>. UnityEvents attached: <b>{response.GetPersistentEventCount()}</b>");
+		EventLogging.Log(LogType.Received, gameEvent.ToString(), gameObject.name, $"({parameter1}, {parameter2})", $"Event received by listener on <b>{name}</b> GameObject. Values passed: <b>{parameter1}</b>, <b>{parameter2}</b>. UnityEvents attached: <b>{response.GetPersistentEventCount()}</b>", gameObject);
 		response.Invoke(parameter1, parameter2);
 	}
 }

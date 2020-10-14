@@ -20,11 +20,12 @@ public enum LogType
 
 public class EventLogMessage
 {
-	public EventLogMessage(float timeStamp, LogType type, string eventName, GameObject gameObject, string value, string message = "")
+	public EventLogMessage(float timeStamp, LogType type, string eventName, string caller, string value, string message, GameObject gameObject)
 	{
 		TimeStamp = timeStamp;
 		Type = type;
 		EventName = eventName;
+		Caller = caller;
 		GameObject = gameObject;
 		Value = value;
 		Message = message;
@@ -35,6 +36,7 @@ public class EventLogMessage
 	public GameObject GameObject;
 	public string Value;
 	public string EventName;
+	public string Caller;
 	public string Message;
 
 	public bool IsUnfolded = false;
@@ -52,13 +54,13 @@ public class EventLogging
 	/// <param name="gameObject">GameObject sending the event.</param>
 	/// <param name="value">Value passed.</param>
 	/// <param name="message">Optional message.</param>
-	public static void Log(LogType type, string eventName, GameObject gameObject, string value, string message = "")
+	public static void Log(LogType type, string eventName, string caller, string value, string message, GameObject gameObject)
 	{
 #if UNITY_EDITOR
-		EventLogMessage msg = new EventLogMessage(Time.realtimeSinceStartup, type, eventName, gameObject, value, message);
+		EventLogMessage msg = new EventLogMessage(Time.realtimeSinceStartup, type, eventName, caller, value, message, gameObject);
 		Messages.Add(msg);
 #else
-		Debug.Log( $"{Time.realtimeSinceStartup:0.000} - Type: {type}, Event: {eventName}, GameObject: {gameObject.name}, Value: {value}, Message: {message}" );
+		Debug.Log( $"{Time.realtimeSinceStartup:0.000} - Type: {type}, Event: {eventName}, Caller: {caller}, Value: {value}, Message: {message}, GameObject: {gameObject.name}" );
 #endif
 	}
 }

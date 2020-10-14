@@ -17,10 +17,11 @@ public class EventBase: ScriptableObject, IEvent
 		EventLogging.Log
 		(
 			LogType.Broadcast,
-			name,
-			gameObject,
+			ToString(),
+			gameObject != null ? gameObject.name : "N/A",
 			"N/A",
-			$"<b>{name}</b> is being broadcast to all subscribing Listeners.</b>"
+			$"<b>{name}</b> is being broadcast to all subscribing Listeners.</b>",
+			gameObject
 		);
 
 		for(int i = listeners.Count - 1; i >= 0; i--)
@@ -30,6 +31,7 @@ public class EventBase: ScriptableObject, IEvent
 
 		for(int i = listenersA.Count - 1; i >= 0; i--)
 		{
+			EventLogging.Log(LogType.Received, ToString(), listenersA[i].Method.Name, "N/A", $"Event received by <b>{listenersA[i].Method.Name}</b>.", null);
 			listenersA[i].Invoke();
 		}
 	}
@@ -65,10 +67,11 @@ public class EventBase<T>: ScriptableObject, IEvent<T>
 		EventLogging.Log
 		(
 			LogType.Broadcast,
-			name,
-			gameObject,
+			ToString(),
+			gameObject != null ? gameObject.name : "N/A",
 			parameter.ToString(),
-			$"<b>{name}</b> is being broadcast to all subscribing Listeners. Value passed: <b>{parameter}</b>"
+			$"<b>{name}</b> is being broadcast to all subscribing Listeners. Value passed: <b>{parameter}</b>",
+			gameObject
 		);
 
 		for(int i = listeners.Count - 1; i >= 0; i--)
@@ -78,6 +81,7 @@ public class EventBase<T>: ScriptableObject, IEvent<T>
 
 		for(int i = listenersA.Count - 1; i >= 0; i--)
 		{
+			EventLogging.Log(LogType.Received, ToString(), listenersA[i].Method.Name, parameter.ToString(), $"Event received by <b>{listenersA[i].Method.Name}</b>.", null);
 			listenersA[i].Invoke(parameter);
 		}
 	}
@@ -89,6 +93,7 @@ public class EventBase<T>: ScriptableObject, IEvent<T>
 
 	public void Subscribe(Action<T> listener)
 	{
+		EventLogging.Log(LogType.Subscribed, name, "N/A", GetType().Name, $"{listener} subscribed directly to {name}.", null);
 		listenersA.Add(listener);
 	}
 
@@ -99,6 +104,7 @@ public class EventBase<T>: ScriptableObject, IEvent<T>
 
 	public void UnSubscribe(Action<T> listener)
 	{
+		EventLogging.Log(LogType.UnSubscribed, name, "N/A", GetType().Name, $"{listener} unsubscribed directly to {name}.", null);
 		listenersA.Remove(listener);
 	}
 }
@@ -113,10 +119,11 @@ public class EventBase<T, U>: ScriptableObject, IEvent<T, U>
 		EventLogging.Log
 		(
 			LogType.Broadcast,
-			name,
-			gameObject,
+			ToString(),
+			gameObject != null ? gameObject.name : "N/A",
 			$"({parameter1}, {parameter2})",
-			$"<b>{name}</b> is being broadcast to all subscribing Listeners. Values passed: <b>{parameter1}</b>, <b>{parameter2}</b>"
+			$"<b>{name}</b> is being broadcast to all subscribing Listeners. Values passed: <b>{parameter1}</b>, <b>{parameter2}</b>",
+			gameObject
 		);
 
 		for(int i = listeners.Count - 1; i >= 0; i--)
@@ -126,6 +133,7 @@ public class EventBase<T, U>: ScriptableObject, IEvent<T, U>
 
 		for(int i = listenersA.Count - 1; i >= 0; i--)
 		{
+			EventLogging.Log(LogType.Received, ToString(), listenersA[i].Method.Name, $"({parameter1}, {parameter2})", $"Event received by <b>{listenersA[i].Method.Name}</b>.", null);
 			listenersA[i].Invoke(parameter1, parameter2);
 		}
 	}
@@ -137,6 +145,7 @@ public class EventBase<T, U>: ScriptableObject, IEvent<T, U>
 
 	public void Subscribe(Action<T, U> listener)
 	{
+		EventLogging.Log(LogType.Subscribed, name, "N/A", GetType().Name, $"{listener} subscribed directly to {name}.", null);
 		listenersA.Add(listener);
 	}
 
@@ -147,6 +156,7 @@ public class EventBase<T, U>: ScriptableObject, IEvent<T, U>
 
 	public void UnSubscribe(Action<T, U> listener)
 	{
+		EventLogging.Log(LogType.UnSubscribed, name, "N/A", GetType().Name, $"{listener} unsubscribed directly to {name}.", null);
 		listenersA.Remove(listener);
 	}
 }
