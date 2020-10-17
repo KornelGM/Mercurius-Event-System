@@ -13,15 +13,15 @@ public class ExampleEventReceiverBySubscribing: MonoBehaviour
 
 	private void OnEnable()
 	{
-		SliderEvent.Subscribe(OnEventRecived);
+		SliderEvent.Subscribe(OnEventReceived);
 	}
 
 	private void OnDisable()
 	{
-		SliderEvent.UnSubscribe(OnEventRecived);
+		SliderEvent.UnSubscribe(OnEventReceived);
 	}
 
-	private void OnEventRecived(float value)
+	private void OnEventReceived(float value)
 	{
 		Label.text = $"Direct subscription received: {value}";
 	}
